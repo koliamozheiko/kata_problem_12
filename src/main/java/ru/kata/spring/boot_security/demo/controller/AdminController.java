@@ -44,7 +44,6 @@ public class AdminController {
     @GetMapping("/admin/edit")
     public String editUser(@RequestParam("id") Long id, Model model) {
         model.addAttribute("userForEdit", userService.findUserById(id));
-        //model.addAttribute("allRoles", userService.showAllRoles());
         return "edit";
     }
 

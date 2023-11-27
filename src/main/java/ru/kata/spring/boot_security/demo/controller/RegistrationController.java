@@ -32,7 +32,6 @@ public class RegistrationController {
     public String registration(Model model) {
         List<Role> allRoles = roleRepository.findAll();
         model.addAttribute("userForm", new User());
-        model.addAttribute("allRoles", allRoles);
         return "registration";
     }
 
