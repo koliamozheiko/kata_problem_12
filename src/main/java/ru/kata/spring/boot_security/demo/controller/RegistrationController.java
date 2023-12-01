@@ -30,7 +30,6 @@ public class RegistrationController {
 
     @GetMapping("/registration")
     public String registration(Model model) {
-        List<Role> allRoles = roleRepository.findAll();
         model.addAttribute("userForm", new User());
         return "registration";
     }
@@ -44,8 +43,6 @@ public class RegistrationController {
         if(userService.saveDefaultUser(userForm)) {
             return "registration";
         }
-
-
 
         return "redirect:login";
     }

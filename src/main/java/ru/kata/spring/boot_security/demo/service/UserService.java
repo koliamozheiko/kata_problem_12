@@ -12,15 +12,12 @@ import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.repositories.RoleRepository;
 import ru.kata.spring.boot_security.demo.repositories.UserRepository;
 
-import javax.persistence.EntityManager;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserService implements UserDetailsService {
 
     private UserRepository userRepository;
-    private EntityManager entityManager;
     private RoleRepository roleRepository;
 
     @Autowired
@@ -29,31 +26,25 @@ public class UserService implements UserDetailsService {
     }
 
     @Autowired
-    public void setEntityManager(EntityManager entityManager) {
-        this.entityManager = entityManager;
-    }
-
-    @Autowired
     public void setUserRepository(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-    public User findByUsername(String username) {
-        return userRepository.findByUsername(username);
+    public User findByUsername(String email) {
+        return userRepository.findByUsername(email);
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = findByUsername(username);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = findByUsername(email);
         if (user == null ) {
-            throw new UsernameNotFoundException(String.format("User '%s' not found", username));
+            throw new UsernameNotFoundException(String.format("User '%s' not found", email));
         }
         return user;
     }
 
     public User findUserById(Long id) {
-        Optional<User> userFromDb = userRepository.findById(id);
-        return userFromDb.orElse(new User());
+        return  userRepository.findById(id).get();
     }
 
     public List<User> allUsers() {
@@ -81,13 +72,17 @@ public class UserService implements UserDetailsService {
 
     @Transactional
     public boolean updateUser(User user) {
-
+        if (userRepository.findByUsername(user.getUsername()) != null) {
+            if (userRepository.findByUsername(user.getUsername()).getId() != user.getId()) {
+                return false;
+            }
+        }
         if (!user.getPassword().startsWith("$2a$10$")) {
             user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         }
-        entityManager.merge(user);
-        return true;
 
+        userRepository.save(user);
+        return true;
     }
 
     public List<Role> showAllRoles() {

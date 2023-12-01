@@ -3,28 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <title>Registration</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="/images/SpringIcon.png" type="image/png">
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </head>
 <body>
-
-<form th:method="POST" th:action="@{/registration}" th:object="${userForm}">
-  <label for="username">Enter username</label>
-  <input type="text" th:field="*{username}" id="username"/>
-  </br>
-  <label for="password">Enter password</label>
-  <input type="text" th:field="*{password}" id="password"/>
-  </br>
-  <label for="confirm_pass">Confirm password</label>
-  <input type="text" th:field="*{passwordConfirm}" id="confirm_pass"/>
-  </br>
-  <label for="roles">Select roles</label>
-  <div id="roles">
-    <label><input type="checkbox" th:field="*{roles}" th:value="1"/> User</label>
-    <label><input type="checkbox" th:field="*{roles}" th:value="2"/> Admin</label>
+<div class="d-flex justify-content-center align-items-center" style="height: 80vh;">
+  <div class="my-auto text-center">
+    <form th:method="POST" th:action="@{/registration}" th:object="${userForm}">
+      <label for="email">Enter email</label>
+      <input type="text" th:field="*{username}" id="email" class="form-control mb-3" required autofocus/>
+      <label for="password">Enter password</label>
+      <input type="text" th:field="*{password}" id="password" class="form-control mb-3" required/>
+      <label for="confirm_pass">Confirm password</label>
+      <input type="text" th:field="*{passwordConfirm}" id="confirm_pass" class="form-control mb-3" required/>
+      <label for="roles">Select roles</label>
+      <div id="roles">
+        <label><input type="checkbox" th:field="*{roles}" th:value="1" class="checkboxes"/> User</label>
+        <label><input type="checkbox" th:field="*{roles}" th:value="2" class="checkboxes"/> Admin</label>
+      </div>
+      <button type="submit" class="btn btn-primary">Create!</button>
+    </form>
   </div>
-  </br>
-  <input type="submit" value="Create!"/>
-
-</form>
+</div>
 
 </body>
 </html>

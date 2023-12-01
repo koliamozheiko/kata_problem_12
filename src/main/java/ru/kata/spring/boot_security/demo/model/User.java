@@ -13,12 +13,17 @@ import java.util.Set;
 
 
 @Entity
-@Data
 @Table(name = "users")
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "first_name")
+    private String firstname;
+    @Column(name = "last_name")
+    private String lastname;
+    @Column(name = "age")
+    private Integer age;
     @Column(name = "username")
     private String username;
     @Column(name = "password")
@@ -70,8 +75,78 @@ public class User implements UserDetails {
     public int hashCode() {
         return Objects.hash(id, username, password, passwordConfirm, roles);
     }
+
     @Override
     public String toString() {
-        return roles.toString();
+        return roles.toString().substring(1, roles.toString().length() - 1)
+                .replace("ROLE_", "")
+                .replace(", ", " ");
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @Override
+    public String getUsername() {
+        return username;
+    }
+
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public String getPasswordConfirm() {
+        return passwordConfirm;
+    }
+
+    public void setPasswordConfirm(String passwordConfirm) {
+        this.passwordConfirm = passwordConfirm;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }
