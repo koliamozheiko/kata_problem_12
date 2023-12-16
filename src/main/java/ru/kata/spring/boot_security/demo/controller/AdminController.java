@@ -29,10 +29,4 @@ public class AdminController {
         model.addAttribute("user", userService.findByUsername(authentication.getName()));
         return "admin";
     }
-
-    @GetMapping("/admin/{id}")
-    public String getAdminPersonPage(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("userAdmin", userService.findUserById(id));
-        return "userAdmin";
-    }
 }

@@ -7,6 +7,12 @@ function getAllUsers() {
         .then(data => createUsersTable(data))
 }
 
+function getAdminUser() {
+    fetch(URL + 'root')
+        .then(res => res.json())
+        .then(data => createAdminPage(data))
+}
+
 // Функция для создания таблицы пользователей
 function createUsersTable(allUsers) {
     let row = ``
@@ -35,6 +41,26 @@ function createUsersTable(allUsers) {
         `
     }
     document.getElementById('users-table').innerHTML = row
+    document.getElementById('UsersInfoTable').style.display = 'block'
+    document.getElementById('UserInfoTable').style.display = 'none'
+}
+
+
+// Функция для создания персональной страницы админа
+
+function createAdminPage(user) {
+    document.getElementById('UserInformation').innerHTML = `
+    <tr>
+            <td>${user.id}</td>
+            <td>${user.firstname}</td>
+            <td>${user.lastname}</td>
+            <td>${user.age}</td>
+            <td>${user.username}</td>
+            <td>${user.roles.map(r => r.name.replace('ROLE_', '')).join(' ')}</td>
+    </tr>
+    `
+    document.getElementById('UserInfoTable').style.display = 'block'
+    document.getElementById('UsersInfoTable').style.display = 'none'
 }
 
 // Функция для создания нового пользователя
@@ -183,6 +209,19 @@ document.getElementById('editForm').addEventListener('submit', e => {
 document.getElementById('deleteForm').addEventListener('submit', e => {
     e.preventDefault()
     deleteUser()
+})
+
+// Перехват события нажатия по кнопке user для отображения личной страницы
+document.getElementById('UserButton').addEventListener("click", e => {
+    e.preventDefault()
+    getAdminUser()
+})
+
+// Перехват события нажатия по кнопке admin для отображения таблицы пользователей
+
+document.getElementById('AdminButton').addEventListener('click', e => {
+    e.preventDefault()
+    getAllUsers()
 })
 
 getAllUsers()

@@ -17,10 +17,10 @@ import java.util.Set;
 @Component
 public class SuccessUserHandler implements AuthenticationSuccessHandler {
 
-    private UserService userService;
+    private final UserService userService;
 
     @Autowired
-    public void setUserService(UserService userService) {
+    public SuccessUserHandler(UserService userService) {
         this.userService = userService;
     }
     // Spring Security использует объект Authentication, пользователя авторизованной сессии.
