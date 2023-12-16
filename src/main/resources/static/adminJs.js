@@ -6,7 +6,7 @@ function getAllUsers() {
         .then(res => res.json())
         .then(data => createUsersTable(data))
 }
-
+// Загрузка страницы одного админа на экран
 function getAdminUser() {
     fetch(URL + 'root')
         .then(res => res.json())
@@ -122,7 +122,7 @@ function editModal(id) {
             document.getElementById('editAge').value = user.age
             document.getElementById('editEmail').value = user.username
             document.getElementById('editPassword').value = user.password
-            //document.getElementById('editRoles').value = user.roles.map(r => r.name.replace('ROLE_', '')).join(' ')
+            document.getElementById('editRoles').value = user.roles.map(r => r.id)
 
         })
 
@@ -172,6 +172,7 @@ function deleteModal(id) {
             document.getElementById('age1').value = user.age
             document.getElementById('email1').value = user.username
             document.getElementById('password1').value = user.password
+            document.getElementById('roles1').value = user.roles.map(r => r.id)
         })
 }
 
