@@ -14,11 +14,12 @@
     <div class="my-auto text-center">
       <form th:action="@{/login}" th:method="post">
           <h2>Please sign in up</h2>
-        <label for="username"></label>
-        <input id="username" type="text" name="username" class="form-control" placeholder="email address" required autofocus/>
-        <label for="password"></label>
-        <input id="password" type="password" name="password" class="form-control mb-3" placeholder="password" required>
-        <button type="submit" class="btn btn-primary">Login</button>
+          <label for="username"></label>
+          <input id="username" type="text" name="username" class="form-control" placeholder="email address" required autofocus/>
+          <label for="password"></label>
+          <input id="password" type="password" name="password" class="form-control mb-3" placeholder="password" required>
+          <button type="submit" class="btn btn-primary">Login</button>
+          <a href="/registration" class="btn btn-secondary ml-2">Register</a>
       </form>
     </div>
 </div>

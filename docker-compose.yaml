@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+
+  mysqldb:
+    container_name: dbcontainer
+    image: mysql
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_DATABASE: web_site_5
+      MYSQL_ROOT_PASSWORD: root
