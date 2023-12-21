@@ -19,12 +19,11 @@ public class UserController {
     }
 
     @GetMapping("/user/{id}")
-    public String showUserPage(@PathVariable("id") Long id, Authentication authentication, Model model) {
+    public String showUserPage(@PathVariable("id") Long id, Authentication authentication) {
         if (!id.equals(userService.findByUsername(authentication.getName()).getId())
                 && !userService.findByUsername(authentication.getName()).getRoles().toString().contains("ROLE_ADMIN")) {
             return "acces-denied";
         }
-        model.addAttribute("user", userService.findUserById(id));
         return "user";
     }
 }
